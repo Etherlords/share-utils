@@ -1,8 +1,9 @@
-package core.ui 
+package core.external 
 {
 	import flash.display.Stage;
 	import flash.events.KeyboardEvent;
-	import patterns.strategy.StrategyController;
+	import core.patterns.strategy.StrategyController;
+
 	/**
 	 * ...
 	 * @author 
