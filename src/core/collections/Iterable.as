@@ -4,12 +4,17 @@ package core.collections
 	public class Iterable extends SimpleMap 
 	{
 		private var index:int = 0;
-		protected var keyList:Vector.<String> = new Vector.<String>
+		protected var _keyList:Vector.<String> = new Vector.<String>
 		
 		public function Iterable() 
 		{
 			super();
 			
+		}
+		
+		public function get current():String
+		{
+			return _keyList[index];
 		}
 		
 		public function set current(key:String):void
@@ -19,7 +24,10 @@ package core.collections
 		
 		public function get currentItem():*
 		{
-			return getItem(keyList[index]);
+			if (_keyList.length == 0)
+				return null;
+				
+			return getItem(_keyList[index]);
 		}
 		
 		public function get nextItem():*
@@ -42,13 +50,18 @@ package core.collections
 			return currentItem;
 		}
 		
+		public function get keyList():Vector.<String> 
+		{
+			return _keyList;
+		}
+		
 		override public function addItem(key:String, item:*):void 
 		{
 			var objectInfo:Object = {item:item, index:_length}
 			
 			super.addItem(key, objectInfo);
 			
-			keyList.push(key);
+			_keyList.push(key);
 		}
 		
 		override public function getItem(key:String):* 
@@ -62,7 +75,7 @@ package core.collections
 		override public function removeItem(key:String):void 
 		{
 			var index:int = super.getItem(key).index;
-			keyList.splice(index, 1);
+			_keyList.splice(index, 1);
 			
 			super.removeItem(key);
 			

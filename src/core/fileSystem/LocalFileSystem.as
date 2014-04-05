@@ -1,13 +1,18 @@
 package core.fileSystem 
 {
-	import core.services.FileLoadingService;
+	import core.services.IService;
 	import flash.events.Event;
+	import flash.events.ProgressEvent;
+	import flash.utils.ByteArray;
+	//import flash.filesystem.File;
+	//import flash.filesystem.FileMode;
+	//import flash.filesystem.FileStream;
 	
 	public class LocalFileSystem implements IFS
 	{
 		private var _directoriesList:Directory;
 		
-		public var loadingService:FileLoadingService;
+		public var loadingService:IService;
 		
 		public function LocalFileSystem() 
 		{
@@ -22,7 +27,13 @@ package core.fileSystem
 		public function onScanComplete(e:Event):void
 		{
 			loadingService.addEventListener(Event.COMPLETE, onLoadComplete);
+			loadingService.addEventListener(ProgressEvent.PROGRESS, onLoadProgress);
 			loadingService.loadFiles(directoriesList);
+		}
+		
+		private function onLoadProgress(e:ProgressEvent):void 
+		{
+			broadcast('vfs', e);
 		}
 		
 		private function onLoadComplete(e:Event):void 
@@ -34,8 +45,6 @@ package core.fileSystem
 		public function test():void
 		{
 			//testDir(directoriesList);
-			
-			
 		}
 		
 		private function testDir(dir:Directory):void
@@ -61,6 +70,9 @@ package core.fileSystem
 			var file:* = directoriesList.getItem(subPath[0]);
 			for (var i:int = 1; i < subPath.length; i++)
 			{
+				if (subPath[i].length == 0)
+					continue;
+					
 				file = file.getItem(subPath[i]);
 			}
 			

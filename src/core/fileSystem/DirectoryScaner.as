@@ -49,10 +49,17 @@ package core.fileSystem
 		
 		public function _scan(dir:File, output:Directory):void
 		{
+			var name:String = dir.name;
+			var path:String = output.path + name + '/';
+			
+			var file:IFile;
+				
 			if (dir.isDirectory)
 			{	
 				var subDir:Directory = new Directory();
-				subDir.name = dir.name;
+				file = subDir;
+				
+				subDir.path = path;
 				output.addItem(dir.name, subDir);
 				
 				var diradded:DirectoryEvent = new DirectoryEvent(DirectoryEvent.DIRECTOEY_ADDED, false, false, subDir);
@@ -68,16 +75,12 @@ package core.fileSystem
 			else
 			{
 				var extension:String = dir.extension;
-				var name:String = dir.name;
-				var path:String = dir.nativePath.substr(entry);
-				
-				var parent:String = path.substr(0, path.indexOf('\\'));
 				
 				var fileInfo:FsFile = new FsFile();
+				
+				file = fileInfo;
+				
 				fileInfo.extension = extension;
-				fileInfo.name = name;
-				fileInfo.path = path;
-				fileInfo.nativePath = dir.nativePath;
 				
 				output.addItem(name, fileInfo);
 				
@@ -86,9 +89,10 @@ package core.fileSystem
 				broadcast(fileadded);
 			}
 			
-			
-			
-			
+			file.name = name;
+			file.path = path;
+			file.nativePath = dir.nativePath;
+			file.parent = output;
 		}
 		
 	}
