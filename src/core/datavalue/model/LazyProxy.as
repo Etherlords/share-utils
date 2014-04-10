@@ -27,7 +27,7 @@ package core.datavalue.model
 			update();
 		}
 		
-		override public function markField(str:String):void 
+		override public function markField(fieldName:String):void 
 		{
 			changedFields[fieldName] = true;
 			

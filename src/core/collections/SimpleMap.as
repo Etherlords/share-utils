@@ -7,7 +7,7 @@ package core.collections
 	public class SimpleMap 
 	{
 		protected var _length:int = 0;
-		protected var map:Object;
+		public var map:Object;
 		
 		public function SimpleMap() 
 		{
