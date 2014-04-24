@@ -5,8 +5,6 @@ package core.fileSystem
 	
 	public class FsFile extends EventDispatcher implements IFile
 	{
-		public var isDerictory:Boolean = false;
-		
 		public var extension:String;
 		
 		private var _name:String;
@@ -27,6 +25,11 @@ package core.fileSystem
 		public override function toString():String 
 		{
 			return "[FsFileInfo extension=" + extension + " name=" + name + " path=" + path + "]";
+		}
+
+		public function get isDerictory():Boolean 
+		{
+			return false;
 		}
 		
 		public function get nativePath():String 

@@ -1,9 +1,9 @@
 package core.external.io 
 {
+import core.utils.formateToString;
 import flash.utils.IDataInput;
 import flash.utils.IDataOutput;
 
-import utils.formateToString;
 
 public class DoubleOperator implements ISerializer, IDeserializer
 	{

@@ -4,6 +4,7 @@ package core.fileSystem
 
 	public interface IFile 
 	{
+		function get isDerictory():Boolean;
 		function get path():String;
 		function set path(value:String):void;
 		

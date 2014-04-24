@@ -1,10 +1,10 @@
 package core.external.io 
 {
+import core.utils.formateToString;
 import flash.geom.Point;
 import flash.utils.IDataInput;
 import flash.utils.IDataOutput;
 
-import utils.formateToString;
 
 public class PointOperator implements ISerializer, IDeserializer
 	{

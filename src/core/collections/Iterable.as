@@ -3,7 +3,7 @@ package core.collections
 	
 	public class Iterable extends SimpleMap 
 	{
-		private var index:int = 0;
+		public var index:int = 0;
 		protected var _keyList:Vector.<String> = new Vector.<String>
 		
 		public function Iterable() 
@@ -27,6 +27,9 @@ package core.collections
 			if (_keyList.length == 0)
 				return null;
 				
+			if (index >= _keyList.length)
+				return null;
+				
 			return getItem(_keyList[index]);
 		}
 		
@@ -34,8 +37,8 @@ package core.collections
 		{
 			index++;
 			
-			if (index == _length)
-				index = 0;
+			//if (index == _length)
+			//	index = 0;
 			
 			return currentItem;
 		}

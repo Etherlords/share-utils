@@ -19,6 +19,11 @@ package core.fileSystem
 			return "[Directory name=" + name + " length="+ _length +"]";
 		}
 		
+		public function get isDerictory():Boolean 
+		{
+			return true;
+		}
+		
 		public function get path():String 
 		{
 			return _path;
