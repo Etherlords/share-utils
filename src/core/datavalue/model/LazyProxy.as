@@ -6,19 +6,20 @@ package core.datavalue.model
 	public dynamic class LazyProxy extends ObjectProxy 
 	{
 		
-		public var updateInterval:Number;
+		private var _updateInterval:Number;
 		protected var updateTimer:Timer;
 		
 		public function LazyProxy(updateInterval:Number = 500) 
 		{
-			this.updateInterval = updateInterval;
+			_updateInterval = updateInterval;
+			
 			initilize();
 			super();
 		}
 		
 		private function initilize():void 
 		{
-			updateTimer = new Timer(updateInterval, 1);
+			updateTimer = new Timer(_updateInterval, 1);
 			updateTimer.addEventListener(TimerEvent.TIMER_COMPLETE, updateTime);
 		}
 		
@@ -33,6 +34,24 @@ package core.datavalue.model
 			
 			if(!updateTimer.running)
 				updateTimer.start();
+		}
+		
+		public function get updateInterval():Number 
+		{
+			return _updateInterval;
+		}
+		
+		public function set updateInterval(value:Number):void 
+		{
+			if (_updateInterval == value)
+				return;
+				
+			_updateInterval = value;
+			
+			//that can produce runtime error if timer is already running and we change intravl in that phase
+			updateTimer.stop();
+			updateTimer.reset();
+			updateTimer.delay = _updateInterval;
 		}
 		
 	}

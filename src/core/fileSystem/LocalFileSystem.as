@@ -1,18 +1,14 @@
 package core.fileSystem 
 {
-	import core.services.IService;
+	import core.services.IFileService;
 	import flash.events.Event;
 	import flash.events.ProgressEvent;
-	import flash.utils.ByteArray;
-	//import flash.filesystem.File;
-	//import flash.filesystem.FileMode;
-	//import flash.filesystem.FileStream;
 	
 	public class LocalFileSystem implements IFS
 	{
 		private var _directoriesList:Directory;
 		
-		public var loadingService:IService;
+		public var loadingService:IFileService;
 		
 		public function LocalFileSystem() 
 		{
