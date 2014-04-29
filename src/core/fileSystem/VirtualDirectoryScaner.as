@@ -50,18 +50,16 @@ package core.fileSystem
 		
 		private function onProgress(e:ProgressEvent):void 
 		{
-			scope = 'vfs';
 			broadcast(e);
 		}
 		
 		private function onLoaded(e:Event):void 
 		{
 			var ba:ByteArray = urlLoader.data as ByteArray;
-			trace(ba.readUTF());
 			_scan(ba, directoryRoot);
 			directoryRoot = directoryRoot.currentItem;
 			
-			scope = 'directoryScaner';
+			
 			broadcast(new Event(Event.COMPLETE));
 		}
 		
