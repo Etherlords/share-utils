@@ -4,7 +4,7 @@ package core.collections
 	 * ...
 	 * @author 
 	 */
-	public class SimpleMap 
+	public class SimpleMap extends Object
 	{
 		protected var _length:int = 0;
 		public var map:Object;
