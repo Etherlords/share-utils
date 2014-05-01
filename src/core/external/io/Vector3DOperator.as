@@ -1,5 +1,7 @@
 package core.external.io 
 {
+import core.utils.formateToString;
+
 import flash.geom.Point;
 import flash.geom.Vector3D;
 import flash.utils.IDataInput;
