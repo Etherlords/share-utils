@@ -6,7 +6,7 @@ package core.fileSystem.events
 	public class DirectoryEvent extends Event 
 	{
 		
-		public static const DIRECTOEY_ADDED:String = 'directoryAdded';
+		public static const DIRECTORY_ADDED:String = 'directoryAdded';
 		
 		public var directory:Directory;
 		
