@@ -1,13 +1,16 @@
-package core.fileSystem 
+package core.fileSystem.external
 {
-	import core.broadcasting.AbstractEventBroadcaster;
+	import core.fileSystem.Directory;
 	import core.fileSystem.events.DirectoryEvent;
 	import core.fileSystem.events.FileEvent;
+	import core.fileSystem.FsFile;
+	import core.fileSystem.IFile;
 	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	import flash.filesystem.File;
 	
 	/**
-	 * @eventType	core.fileSystem.events.DirectoryEvent.DIRECTOEY_ADDED
+	 * @eventType	core.fileSystem.events.DirectoryEvent.DIRECTORY_ADDED
 	 */
 	[Event(name = "directoryAdded", type = "core.fileSystem.events.DirectoryEvent")] 
 	
@@ -20,14 +23,11 @@ package core.fileSystem
 	 * @eventType	flash.events.Event.COMPLETE
 	 */
 	[Event(name = "complete", type = "flash.events.Event")] 
-	
-	
-	public class DirectoryScaner extends AbstractEventBroadcaster
+
+	public class DirectoryScaner extends EventDispatcher implements IDirectoryScaner
 	{
-		public var path:String;
-		public var directoryRoot:Directory
-		
-		private var entry:int = 0;
+		private var _path:String;
+		private var _directoryRoot:Directory;
 		
 		public function DirectoryScaner() 
 		{
@@ -36,15 +36,14 @@ package core.fileSystem
 		
 		public function set nativePath(value:String):void
 		{
-			entry = value.length;
-			path = value;
+			_path = value;
 		}
 		
 		public function scan():void
 		{
-			_scan(File.applicationDirectory.resolvePath(path), directoryRoot);
+			_scan(File.applicationDirectory.resolvePath(_path), _directoryRoot);
 			
-			broadcast(new Event(Event.COMPLETE));
+			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
 		public function _scan(dir:File, output:Directory):void
@@ -62,8 +61,8 @@ package core.fileSystem
 				subDir.path = path;
 				output.addItem(dir.name, subDir);
 				
-				var diradded:DirectoryEvent = new DirectoryEvent(DirectoryEvent.DIRECTOEY_ADDED, false, false, subDir);
-				broadcast(diradded);
+				var diradded:DirectoryEvent = new DirectoryEvent(DirectoryEvent.DIRECTORY_ADDED, false, false, subDir);
+                dispatchEvent(diradded);
 				
 				var dirList:Array = dir.getDirectoryListing();
 				
@@ -85,8 +84,8 @@ package core.fileSystem
 				output.addItem(name, fileInfo);
 				
 				var fileadded:FileEvent = new FileEvent(FileEvent.FILE_ADDED, false, false, fileInfo);
-				
-				broadcast(fileadded);
+
+                dispatchEvent(fileadded);
 			}
 			
 			file.name = name;
@@ -94,7 +93,22 @@ package core.fileSystem
 			file.nativePath = dir.nativePath;
 			file.parent = output;
 		}
-		
-	}
+
+        public function get path():String {
+            return _path;
+        }
+
+        public function set path(value:String):void {
+            _path = value;
+        }
+
+        public function get directoryRoot():core.fileSystem.Directory {
+            return _directoryRoot;
+        }
+
+        public function set directoryRoot(value:Directory):void {
+            _directoryRoot = value;
+        }
+    }
 
 }

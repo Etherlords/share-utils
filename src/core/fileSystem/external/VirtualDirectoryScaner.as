@@ -1,7 +1,11 @@
-package core.fileSystem 
+package core.fileSystem.external
 {
-	import core.broadcasting.AbstractEventBroadcaster;
+
+	import core.fileSystem.Directory;
+	import core.fileSystem.FsFile;
+	import core.fileSystem.IFile;
 	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	import flash.events.ProgressEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLLoaderDataFormat;
@@ -24,15 +28,13 @@ package core.fileSystem
 	[Event(name = "complete", type = "flash.events.Event")] 
 	
 	
-	public class VirtualDirectoryScaner extends AbstractEventBroadcaster
+	public class VirtualDirectoryScaner extends EventDispatcher implements IDirectoryScaner
 	{
-		
-		
-		public var path:String;
-		public var directoryRoot:Directory
-		
 		private var entry:int = 0;
 		private var urlLoader:URLLoader;
+		
+		private var _path:String;
+		private var _directoryRoot:Directory;
 		
 		public function VirtualDirectoryScaner() 
 		{
@@ -50,7 +52,7 @@ package core.fileSystem
 		
 		private function onProgress(e:ProgressEvent):void 
 		{
-			broadcast(e);
+			dispatchEvent(e);
 		}
 		
 		private function onLoaded(e:Event):void 
@@ -60,7 +62,7 @@ package core.fileSystem
 			directoryRoot = directoryRoot.currentItem;
 			
 			
-			broadcast(new Event(Event.COMPLETE));
+			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
 		public function _scan(file:ByteArray, output:Directory):void
@@ -114,7 +116,26 @@ package core.fileSystem
 				_scan(file, dir);
 			
 			return dir;
-			
+		}
+		
+		public function get path():String 
+		{
+			return _path;
+		}
+		
+		public function set path(value:String):void 
+		{
+			_path = value;
+		}
+		
+		public function get directoryRoot():Directory 
+		{
+			return _directoryRoot;
+		}
+		
+		public function set directoryRoot(value:Directory):void 
+		{
+			_directoryRoot = value;
 		}
 		
 	}
