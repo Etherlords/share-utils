@@ -17,9 +17,14 @@ package core.fileSystem
 		public var nativeContent:ByteArray;
 		public var content:*;
 		
-		public function FsFile() 
+		public function FsFile(_name:String = '', _path:String = '', content:* = null, _parent:IFile = null, nativeContent:ByteArray = null, nativePath:String = '') 
 		{
-			
+			this.nativePath = nativePath;
+			this.nativeContent = nativeContent;
+			this._parent = _parent;
+			this.content = content;
+			this._path = _path;
+			this._name = _name;
 		}
 		
 		public override function toString():String 
