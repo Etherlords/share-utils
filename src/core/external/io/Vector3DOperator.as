@@ -33,6 +33,8 @@ public class Vector3DOperator implements ISerializer, IDeserializer
 		
 		public function serialize(source:IDataInput):int 
 		{
+			_value = new Vector3D();
+			
 			(_value as Vector3D).x = source.readDouble();
 			(_value as Vector3D).y = source.readDouble();
 			(_value as Vector3D).z = source.readDouble();

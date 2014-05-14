@@ -22,8 +22,9 @@ package core.datavalue.model
 		
 		private var dispatcher:EventDispatcher = new EventDispatcher();
 		
-		public function ObjectProxy() 
+		public function ObjectProxy(autoUpdate:Boolean = false ) 
 		{
+			this.autoUpdate = autoUpdate;
 			
 		}
 		
@@ -50,9 +51,11 @@ package core.datavalue.model
 		{
 			changedFields[fieldName] = true;
 			
-			//update();
+			if (autoUpdate)
+				update();
 		}
 		
+		public var autoUpdate:Boolean;
 		private static const updateEvent:ProxyEvent = new ProxyEvent(ProxyEvent.UPDATE_EVENT);
 		public function update():void 
 		{

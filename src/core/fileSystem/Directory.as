@@ -19,6 +19,17 @@ package core.fileSystem
 			return "[Directory name=" + name + " length="+ _length +"]";
 		}
 		
+		public function clone():IFile 
+		{
+			var dirClone:Directory = new Directory();
+			dirClone._name = _name;
+			dirClone._path = _path;
+			dirClone._nativePath = _nativePath;
+			dirClone._parent = _parent;
+			
+			return dirClone as IFile;
+		}
+		
 		public function get isDerictory():Boolean 
 		{
 			return true;

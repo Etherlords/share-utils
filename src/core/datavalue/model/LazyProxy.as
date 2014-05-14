@@ -20,11 +20,12 @@ package core.datavalue.model
 		private function initilize():void 
 		{
 			updateTimer = new Timer(_updateInterval, 1);
-			updateTimer.addEventListener(TimerEvent.TIMER_COMPLETE, updateTime);
+			updateTimer.addEventListener(TimerEvent.TIMER, updateTime);
 		}
 		
 		private function updateTime(e:TimerEvent):void 
 		{
+			updateTimer.stop();
 			update();
 		}
 		

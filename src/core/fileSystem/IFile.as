@@ -16,6 +16,8 @@ package core.fileSystem
 		
 		function get parent():IFile
 		function set parent(value:IFile):void
+		
+		function clone():IFile;
 	}
 	
 }

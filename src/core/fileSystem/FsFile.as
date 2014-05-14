@@ -17,8 +17,9 @@ package core.fileSystem
 		public var nativeContent:ByteArray;
 		public var content:*;
 		
-		public function FsFile(_name:String = '', _path:String = '', content:* = null, _parent:IFile = null, nativeContent:ByteArray = null, nativePath:String = '') 
+		public function FsFile(_name:String = '', _path:String = '', content:* = null, _parent:IFile = null, nativeContent:ByteArray = null, nativePath:String = '', extension:String = '') 
 		{
+			this.extension = extension;
 			this.nativePath = nativePath;
 			this.nativeContent = nativeContent;
 			this._parent = _parent;
@@ -30,6 +31,11 @@ package core.fileSystem
 		public override function toString():String 
 		{
 			return "[FsFileInfo extension=" + extension + " name=" + name + " path=" + path + "]";
+		}
+		
+		public function clone():IFile 
+		{
+			return new FsFile(_name, _path, content, _parent, nativeContent, _nativePath, extension);
 		}
 
 		public function get isDerictory():Boolean 
